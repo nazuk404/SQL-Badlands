@@ -1,0 +1,23 @@
+{
+    "name": "sql-badlands-backend",
+    "version": "2.0.0",
+    "description": "Backend server for SQL Badlands game with MySQL database",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node server.js"
+    },
+    "keywords": [
+        "sql",
+        "learning",
+        "game",
+        "mysql"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "mysql2": "^3.6.0",
+        "cors": "^2.8.5"
+    }
+}

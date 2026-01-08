@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Badlands: The First Cook</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="game-title">SQL Badlands: The First Cook</h1>
+      <div class="progress-bar">
+        <span id="chapter-indicator">Chapter 1</span>
+        <span id="mission-indicator">Mission 1 of 3</span>
+        <button id="mission-selector-btn" class="btn btn-secondary btn-small">Missions</button>
+        <button id="schema-btn" class="btn btn-secondary btn-small">Schema</button>
+        <button id="history-btn" class="btn btn-secondary btn-small">History</button>
+        <button id="badge-btn" class="badge-btn hidden" title="View Certificate">🏆</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Left Panel: Story and Mission -->
+      <section class="story-panel">
+        <div class="chapter-info">
+          <h2 id="chapter-title">The Diagnosis</h2>
+          <p id="chapter-narration" class="narration">
+            You work for Saul Goodman, a criminal defense attorney. A high school chemistry teacher named Walter White
+            has just been diagnosed with lung cancer. Something is about to change in this city.
+          </p>
+        </div>
+
+        <div class="mission-info">
+          <h3>Mission Objective</h3>
+          <p id="mission-text" class="mission-description">
+            Show every character in the database. I want a full list.
+          </p>
+        </div>
+      </section>
+
+      <!-- Right Panel: SQL Console -->
+      <section class="console-panel">
+        <div class="console-header">
+          <h3>SQL Console</h3>
+        </div>
+
+        <textarea id="sql-input" class="sql-textarea" placeholder="Enter your SQL query here..."
+          spellcheck="false"></textarea>
+
+        <div class="console-controls">
+          <button id="run-btn" class="btn btn-primary">Run Query</button>
+          <button id="clear-btn" class="btn btn-secondary">Clear</button>
+        </div>
+
+        <!-- Feedback Area -->
+        <div id="feedback" class="feedback hidden"></div>
+
+        <!-- Navigation -->
+        <div id="navigation" class="navigation hidden">
+          <button id="next-btn" class="btn btn-success">Next Mission</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <h3>Query Results</h3>
+      <div id="results-container" class="results-container">
+        <p class="placeholder-text">Run a query to see results here.</p>
+      </div>
+    </section>
+
+    <!-- Mission Selector Modal -->
+    <div id="mission-selector-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Chapters & Missions</h2>
+          <button id="close-mission-selector" class="close-btn">&times;</button>
+        </div>
+        <div id="mission-selector-body" class="modal-body">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Schema Viewer Modal -->
+    <div id="schema-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Database Schema</h2>
+          <button id="close-schema" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body schema-content">
+          <div class="schema-table">
+            <h3>Characters</h3>
+            <ul>
+              <li><strong>CharacterID</strong> INT PRIMARY KEY</li>
+              <li><strong>FirstName</strong> VARCHAR(255)</li>
+              <li><strong>LastName</strong> VARCHAR(255)</li>
+              <li><strong>DateOfBirth</strong> DATE</li>
+              <li><strong>Gender</strong> VARCHAR(10)</li>
+              <li><strong>Occupation</strong> VARCHAR(255)</li>
+              <li><strong>Description</strong> TEXT</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>Episodes</h3>
+            <ul>
+              <li><strong>EpisodeID</strong> INT PRIMARY KEY</li>
+              <li><strong>Title</strong> VARCHAR(255)</li>
+              <li><strong>Season</strong> INT</li>
+              <li><strong>Airdate</strong> DATE</li>
+              <li><strong>Description</strong> TEXT</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>Locations</h3>
+            <ul>
+              <li><strong>LocationID</strong> INT PRIMARY KEY</li>
+              <li><strong>Name</strong> VARCHAR(255)</li>
+              <li><strong>Type</strong> VARCHAR(255)</li>
+              <li><strong>Description</strong> TEXT</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>Drugs</h3>
+            <ul>
+              <li><strong>DrugID</strong> INT PRIMARY KEY</li>
+              <li><strong>Name</strong> VARCHAR(255)</li>
+              <li><strong>ChemicalFormula</strong> VARCHAR(255)</li>
+              <li><strong>Description</strong> TEXT</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>Events</h3>
+            <ul>
+              <li><strong>EventID</strong> INT PRIMARY KEY</li>
+              <li><strong>Date</strong> DATE</li>
+              <li><strong>Description</strong> TEXT</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>CharacterEpisode</h3>
+            <ul>
+              <li><strong>AppearanceID</strong> INT PRIMARY KEY</li>
+              <li><strong>CharacterID</strong> INT (FK → Characters)</li>
+              <li><strong>EpisodeID</strong> INT (FK → Episodes)</li>
+              <li><strong>Role</strong> VARCHAR(50)</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>CharacterLocation</h3>
+            <ul>
+              <li><strong>AssociationID</strong> INT PRIMARY KEY</li>
+              <li><strong>CharacterID</strong> INT (FK → Characters)</li>
+              <li><strong>LocationID</strong> INT (FK → Locations)</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>CharacterDrug</h3>
+            <ul>
+              <li><strong>InvolvementID</strong> INT PRIMARY KEY</li>
+              <li><strong>CharacterID</strong> INT (FK → Characters)</li>
+              <li><strong>DrugID</strong> INT (FK → Drugs)</li>
+              <li><strong>Role</strong> VARCHAR(50)</li>
+            </ul>
+          </div>
+
+          <div class="schema-table">
+            <h3>EventAssociation</h3>
+            <ul>
+              <li><strong>EventAssociationID</strong> INT PRIMARY KEY</li>
+              <li><strong>EventID</strong> INT (FK → Events)</li>
+              <li><strong>CharacterID</strong> INT (FK → Characters)</li>
+              <li><strong>EpisodeID</strong> INT (FK → Episodes)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Query History Modal -->
+    <div id="history-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Query History</h2>
+          <button id="close-history" class="close-btn">&times;</button>
+        </div>
+        <div id="history-body" class="modal-body">
+          <p class="placeholder-text">No queries run yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal hidden">
+      <div class="modal-content certificate-modal-content">
+        <div class="modal-header">
+          <h2>🏆 Achievement Unlocked!</h2>
+          <button id="close-certificate" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="certificate-container" class="certificate-container">
+            <div class="certificate">
+              <div class="certificate-border">
+                <div class="certificate-header">
+                  <div class="badge-icon">🏆</div>
+                  <h1>Certificate of Completion</h1>
+                  <div class="certificate-subtitle">SQL Badlands: The First Cook</div>
+                </div>
+
+                <div class="certificate-body">
+                  <p class="certificate-text">This certifies that</p>
+                  <h2 class="certificate-name" id="certificate-player-name">SQL Master</h2>
+                  <p class="certificate-text">has successfully completed all missions and demonstrated mastery of SQL
+                    fundamentals through the dangerous journey of SQL Badlands.</p>
+
+                  <div class="certificate-stats">
+                    <div class="stat-item">
+                      <div class="stat-value" id="cert-total-queries">0</div>
+                      <div class="stat-label">Queries Executed</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">14</div>
+                      <div class="stat-label">Missions Completed</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">4</div>
+                      <div class="stat-label">Chapters Mastered</div>
+                    </div>
+                  </div>
+
+                  <div class="certificate-footer">
+                    <div class="certificate-date" id="certificate-date"></div>
+                    <div class="certificate-code">
+                      <span class="code-label">Achievement Code:</span>
+                      <span class="code-value" id="certificate-code"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="certificate-actions">
+            <button id="download-certificate" class="btn btn-primary">📥 Download Certificate</button>
+            <button id="share-certificate" class="btn btn-secondary">📋 Copy Achievement Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
