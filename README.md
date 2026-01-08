@@ -10,19 +10,6 @@ A browser-based SQL learning game set in the Breaking Bad universe. Learn SQL th
 
 **SQL Badlands: The First Cook** is an interactive SQL tutorial disguised as a narrative game. You work for Saul Goodman, managing a database while a chemistry teacher named Walter White makes life-changing decisions. Progress through 4 chapters and 14 missions to master SQL fundamentals.
 
-### ✨ Features
-
-- 🎯 **14 Progressive Missions** - From basic SELECT to complex JOINs and data manipulation
-- 📖 **Story-Driven Learning** - Engaging Breaking Bad narrative with real characters
-- 🔒 **Progressive Unlocking** - Missions unlock as you complete them
-- 📊 **Schema Viewer** - Reference database structure anytime
-- 📝 **Query History** - Track your attempts (cleared on refresh)
-- 🎨 **Greyscale UI** - Clean, distraction-free interface
-- 🔄 **Fresh Start** - Game resets on every page refresh
-- ✅ **Real-time Validation** - Instant feedback on your SQL queries
-- 🏆 **Certificate System** - Unlock achievement certificate after completing all missions
-- 🗄️ **MySQL Database** - Industry-standard database for realistic learning
-
 ## 🚀 Quick Start
 
 ### Prerequisites
